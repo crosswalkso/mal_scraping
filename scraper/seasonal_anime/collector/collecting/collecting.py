@@ -40,7 +40,5 @@ class Collecting(webdriver.Chrome):
             "//div[contains(@class, 'seasonal-anime-list')][1]",
         )
         report = CollectingReport(new_anime_boxes)
-        res = report.get_all_attributes(driver=self)  # collect_images <- driver
-        for i in res:
-            print(i)
-        print(len(res))  # 330
+        queries = report.get_all_attributes(driver=self)  # collect_images <- driver
+        return queries

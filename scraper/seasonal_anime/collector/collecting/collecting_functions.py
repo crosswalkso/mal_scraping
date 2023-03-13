@@ -93,19 +93,84 @@ def collect_synopses(anime_box, idx):
             .get_attribute("innerHTML")
             .strip()
         )
+        synopsis_s = synopsis.split("'")
+        result = ""
+        for synopsis in synopsis_s:
+            result += synopsis + "''"
     except Exception as e:
-        synopsis = "Unknown"
-    return synopsis
+        result = "Unknown  "
+    return result[:-2]
 
 
 ### genre table list
+def collect_genres(anime_box, idx, genre_set):
+    try:
+        genres = anime_box.find_elements(
+            By.XPATH,
+            f"//div[contains(@class, 'seasonal-anime-list')][1]//div[contains(@class, 'js-seasonal-anime') and not(contains(@class, 'js-kids'))][{idx+1}]//span[@class='genre']",
+        )
+    except Exception as e:
+        return genre_set
+    # for genre in genres:
+    #     genre_set.add(genre.get_attribute("innerText"))
+    return genres
+
 
 ### studio table
+def collect_studios(anime_box, idx, studio_set):
+    try:
+        studios = anime_box.find_elements(
+            By.XPATH,
+            f"//div[contains(@class, 'seasonal-anime-list')][1]//div[contains(@class, 'js-seasonal-anime') and not(contains(@class, 'js-kids'))][{idx+1}]//div[@class='property'][1]//a",
+        )
+    except Exception as e:
+        return studio_set
+    return studios
+
 
 ### source table
+def collect_sources(anime_box, idx, source_set):
+    try:
+        sources = anime_box.find_elements(
+            By.XPATH,
+            f"//div[contains(@class, 'seasonal-anime-list')][1]//div[contains(@class, 'js-seasonal-anime') and not(contains(@class, 'js-kids'))][{idx+1}]//div[@class='property'][2]//span[@class='item']",
+        )
+    except Exception as e:
+        return source_set
+    return sources
+
 
 ### theme table
+def collect_themes(anime_box, idx, theme_set):
+    try:
+        themes = anime_box.find_elements(
+            By.XPATH,
+            f"//div[contains(@class, 'seasonal-anime-list')][1]//div[contains(@class, 'js-seasonal-anime') and not(contains(@class, 'js-kids'))][{idx+1}]//div[@class='property'][3]//span[@class='item']",
+        )
+    except Exception as e:
+        return theme_set
+    return themes
+
 
 ### demographic table
+def collect_demographics(anime_box, idx):
+    try:
+        demographics = anime_box.find_elements(
+            By.XPATH,
+            f"//div[contains(@class, 'seasonal-anime-list')][1]//div[contains(@class, 'js-seasonal-anime') and not(contains(@class, 'js-kids'))][{idx+1}]//div[@class='property'][4]//span[@class='item']",
+        )
+    except Exception as e:
+        return ["Unknown"]
+    return demographics
+
 
 ### broadcast table
+def collect_broadcasts(anime_box, idx, broadcast_set):
+    try:
+        broadcasts = anime_box.find_elements(
+            By.XPATH,
+            f"//div[contains(@class, 'seasonal-anime-list')][1]//div[contains(@class, 'js-seasonal-anime') and not(contains(@class, 'js-kids'))][{idx+1}]//div[@class='broadcast']//i",
+        )
+    except Exception as e:
+        return broadcast_set
+    return broadcasts
