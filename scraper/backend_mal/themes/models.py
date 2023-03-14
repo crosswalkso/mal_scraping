@@ -19,6 +19,13 @@ class ThemeList(models.Model):
     anime = models.OneToOneField(Anime, models.DO_NOTHING, primary_key=True)
     theme = models.ForeignKey(Theme, models.DO_NOTHING)
 
+    def __str__(self) -> str:
+        name = self.anime.title
+        if len(name) > 30:
+            return f"{name[:30]}... - {self.theme.theme_name}"
+        else:
+            return f"{name} - {self.theme.theme_name}"
+
     class Meta:
         managed = False
         db_table = "theme_list"

@@ -19,6 +19,9 @@ class DemoList(models.Model):
     anime = models.OneToOneField(Anime, models.DO_NOTHING, primary_key=True)
     demo = models.ForeignKey(Demo, models.DO_NOTHING)
 
+    def __str__(self) -> str:
+        return f"{self.anime} - {self.demo.demo_name}"
+
     class Meta:
         managed = False
         db_table = "demo_list"

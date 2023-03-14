@@ -19,6 +19,13 @@ class AnimeStudios(models.Model):
     anime = models.OneToOneField(Anime, models.DO_NOTHING, primary_key=True)
     studio = models.ForeignKey("Studio", models.DO_NOTHING)
 
+    def __str__(self) -> str:
+        name = self.anime.title
+        if len(name) > 30:
+            return f"{name[:30]}... - {self.studio}"
+        else:
+            return f"{name} - {self.studio}"
+
     class Meta:
         managed = False
         db_table = "anime_studios"

@@ -16,8 +16,16 @@ class Broadcast(models.Model):
 
 
 class BroadcastList(models.Model):
-    anime = models.OneToOneField(Anime, models.DO_NOTHING, primary_key=True)
+    id = models.BigAutoField(primary_key=True)
+    anime = models.ForeignKey(Anime, models.DO_NOTHING)
     broadcast = models.ForeignKey(Broadcast, models.DO_NOTHING)
+
+    def __str__(self):
+        name = self.anime.title
+        if len(name) > 30:
+            return f"{name[:30]}... - {self.broadcast.broadcast_name}"
+        else:
+            return f"{name} - {self.broadcast.broadcast_name}"
 
     class Meta:
         managed = False

@@ -21,7 +21,11 @@ class AnimeGenres(models.Model):
     genre = models.ForeignKey("Genre", models.DO_NOTHING)
 
     def __str__(self) -> str:
-        return f"{self.genre} - {self.anime}"
+        name = self.anime.title
+        if len(name) > 30:
+            return f"{name[:30]}... - {self.genre}"
+        else:
+            return f"{name} - {self.genre}"
 
     class Meta:
         managed = False
