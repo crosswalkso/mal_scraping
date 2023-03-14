@@ -1,0 +1,1 @@
+print('score, member를 업데이트 합니다.')
