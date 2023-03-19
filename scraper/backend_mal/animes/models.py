@@ -3,7 +3,11 @@ from django.db import models
 
 # Create your models here.
 class Anime(models.Model):
-    season = models.ForeignKey("seasons.Season", models.DO_NOTHING)
+    season = models.ForeignKey(
+        "seasons.Season",
+        models.DO_NOTHING,
+        related_name="anime",
+    )
     id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=200)
     start_date = models.CharField(max_length=20, blank=True, null=True)
