@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { Text } from "@chakra-ui/react";
 
-export default function Animes() {
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/v1/seasons/1/animes");
-  }, []);
-  return <h1>Animes</h1>;
+export default function Animes({ title }) {
+  return (
+    <div>
+      <Text>{title}</Text>
+    </div>
+  );
 }
