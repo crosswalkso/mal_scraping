@@ -2,7 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
 from .models import *
-from .serializers import *
+from .serializers import BroadcastListSerializer
+from .serializers_mini import BroadcastSerializer
 
 
 class Broadcasts(APIView):
@@ -28,15 +29,8 @@ class BroadcastDetail(APIView):
         return Response(serializer.data)
 
 
-class BroadcastList(APIView):
-    def get_object(self, pk):
-        try:
-            return Broadcast.objects.get(pk=pk)
-        except Broadcast.DoesNotExist:
-            raise NotFound
-
+class BroadcastLists(APIView):
     def get(self, request, broad_pk):
-        broadcast = self.get_object(broad_pk)
-        animes = broadcast.broadcastlist_set.all()
-        serializer = BroadcastListSerializer(animes)
+        anime_by_broadcast = BroadcastList.objects.all().filter(broadcast_id=broad_pk)
+        serializer = BroadcastListSerializer(anime_by_broadcast, many=True)
         return Response(serializer.data)

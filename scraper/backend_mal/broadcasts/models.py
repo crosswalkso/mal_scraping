@@ -17,8 +17,16 @@ class Broadcast(models.Model):
 
 class BroadcastList(models.Model):
     id = models.BigAutoField(primary_key=True)
-    anime = models.ForeignKey(Anime, models.DO_NOTHING)
-    broadcast = models.ForeignKey(Broadcast, models.DO_NOTHING)
+    anime = models.ForeignKey(
+        Anime,
+        models.DO_NOTHING,
+        related_name="broadcastlist",
+    )
+    broadcast = models.ForeignKey(
+        Broadcast,
+        models.DO_NOTHING,
+        related_name="broadcastlist",
+    )
 
     def __str__(self):
         name = self.anime.title
