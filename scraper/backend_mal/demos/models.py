@@ -16,8 +16,17 @@ class Demo(models.Model):
 
 
 class DemoList(models.Model):
-    anime = models.OneToOneField(Anime, models.DO_NOTHING, primary_key=True)
-    demo = models.ForeignKey(Demo, models.DO_NOTHING)
+    anime = models.OneToOneField(
+        Anime,
+        models.DO_NOTHING,
+        primary_key=True,
+        related_name="demolist",
+    )
+    demo = models.ForeignKey(
+        Demo,
+        models.DO_NOTHING,
+        related_name="demolist",
+    )
 
     def __str__(self) -> str:
         return f"{self.anime} - {self.demo.demo_name}"
