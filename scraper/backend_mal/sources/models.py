@@ -16,8 +16,17 @@ class Source(models.Model):
 
 
 class SourceList(models.Model):
-    anime = models.OneToOneField(Anime, models.DO_NOTHING, primary_key=True)
-    source = models.ForeignKey(Source, models.DO_NOTHING)
+    anime = models.OneToOneField(
+        Anime,
+        models.DO_NOTHING,
+        primary_key=True,
+        related_name="sourcelist",
+    )
+    source = models.ForeignKey(
+        Source,
+        models.DO_NOTHING,
+        related_name="sourcelist",
+    )
 
     def __str__(self) -> str:
         name = self.anime.title
