@@ -16,15 +16,18 @@ class Genre(models.Model):
 
 
 class AnimeGenres(models.Model):
-    anime = models.OneToOneField(Anime, models.DO_NOTHING, primary_key=True)
+    # WARNINGS: OneToOneField -> ForeignKey
+    anime = models.ForeignKey(
+        Anime,
+        models.DO_NOTHING,
+        primary_key=True,
+        related_name="animegenres",
+    )
     genre = models.ForeignKey(
         "Genre",
         models.DO_NOTHING,
         related_name="animegenres",
     )
-
-    def anime_genre(self):
-        return self.objects.all()
 
     def __str__(self) -> str:
         name = self.anime.title

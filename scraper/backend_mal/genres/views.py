@@ -1,9 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
-from .models import Genre
-from .serializers import *
-from animes.serializers import AnimeSerializer
+from .models import Genre, AnimeGenres
+from .serializers import AnimeGenreSerializer
+from .serializers_mini import GenreSerializer
 
 
 class Genres(APIView):
@@ -30,14 +30,7 @@ class GenreDetail(APIView):
 
 
 class GenreAnimes(APIView):
-    def get_genre(self, pk):
-        try:
-            return Genre.objects.get(pk=pk)
-        except Genre.DoesNotExist:
-            raise NotFound
-
     def get(self, request, genre_pk):
-        genre = self.get_genre(genre_pk).animegenres.values()[0]["anime_id"]
-        print(genre)
-        serializer = AnimeGenreSerializer(genre)
+        anime_by_genre = AnimeGenres.objects.all().filter(genre_id=genre_pk)
+        serializer = AnimeGenreSerializer(anime_by_genre, many=True)
         return Response(serializer.data)
