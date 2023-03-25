@@ -16,8 +16,17 @@ class Studio(models.Model):
 
 
 class AnimeStudios(models.Model):
-    anime = models.OneToOneField(Anime, models.DO_NOTHING, primary_key=True)
-    studio = models.ForeignKey("Studio", models.DO_NOTHING)
+    anime = models.OneToOneField(
+        Anime,
+        models.DO_NOTHING,
+        primary_key=True,
+        related_name="animestudios",
+    )
+    studio = models.ForeignKey(
+        "Studio",
+        models.DO_NOTHING,
+        related_name="animestudios",
+    )
 
     def __str__(self) -> str:
         name = self.anime.title
