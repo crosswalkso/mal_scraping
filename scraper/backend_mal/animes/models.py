@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 # Create your models here.
@@ -6,6 +7,12 @@ class Anime(models.Model):
     season = models.ForeignKey(
         "seasons.Season",
         models.DO_NOTHING,
+        related_name="anime",
+    )
+    is_manager = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        models.DO_NOTHING,
+        db_column="is_manager",  # 중요
         related_name="anime",
     )
     id = models.BigAutoField(primary_key=True)
