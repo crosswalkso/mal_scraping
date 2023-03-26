@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound, NotAuthenticated, ParseError
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import Anime
 from seasons.models import Season
 from .serializers import AnimeSerializer
@@ -38,6 +39,8 @@ class SeasonAnimes(APIView):
 
 # [get, put] api/v1/seasons/season_pk/animes/anime_pk
 class SeasonAnimeDetail(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get_season_object(self, season_pk):
         try:
             return Season.objects.get(pk=season_pk)
@@ -60,7 +63,7 @@ class SeasonAnimeDetail(APIView):
         season = self.get_season_object(season_pk)
         anime = self.get_anime_object(season, anime_pk)
         # 수정 manager만 수정 가능
-        if request.user.is_authenticated and anime.is_manager == request.user:
+        if request.user.is_manager:
             serializer = AnimeSerializer(
                 anime,
                 data=request.data,

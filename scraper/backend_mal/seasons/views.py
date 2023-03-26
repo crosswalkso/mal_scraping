@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound, NotAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import Season
 from .serializers import SeasonSerializer
 from rest_framework.status import HTTP_400_BAD_REQUEST
@@ -11,6 +12,8 @@ from rest_framework.status import HTTP_400_BAD_REQUEST
 
 # [get, post, post_auth_x] api/v1/seasons/
 class Seasons(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get(self, request):
         seasons = Season.objects.all()
         serializer = SeasonSerializer(
@@ -20,22 +23,27 @@ class Seasons(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = SeasonSerializer(data=request.data)
-        if serializer.is_valid():
-            season = serializer.save()
-            return Response(
-                SeasonSerializer(season).data,
-            )
+        if request.user.is_manager:
+            serializer = SeasonSerializer(data=request.data)
+            if serializer.is_valid():
+                season = serializer.save()
+                return Response(
+                    SeasonSerializer(season).data,
+                )
+            else:
+                return Response(
+                    serializer.errors,
+                    status=HTTP_400_BAD_REQUEST,
+                )
         else:
-            return Response(
-                serializer.errors,
-                status=HTTP_400_BAD_REQUEST,
-            )
+            raise NotAuthenticated
 
 
 # [get, put, put_auth_ing] api/v1/seasons/season_pk
 # auth -> manager..
 class SeasonDetail(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get_object(self, pk):
         try:
             return Season.objects.get(pk=pk)
@@ -50,7 +58,7 @@ class SeasonDetail(APIView):
 
     def put(self, request, season_pk):
         season = self.get_object(season_pk)
-        if request.user.is_authenticated:
+        if request.user.is_manager:
             serializer = SeasonSerializer(
                 season,
                 data=request.data,  # dict, json
