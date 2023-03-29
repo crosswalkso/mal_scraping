@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "./components/Home";
+import Home from "./routes/Home";
 import Root from "./components/Root";
-import Animes from "./routes/Animes";
+import Animes from "./components/Animes";
 import NotFound from "./routes/NotFound";
 import Season from "./routes/Season";
 
