@@ -18,7 +18,7 @@ class AnimeSerializer(serializers.ModelSerializer):
     demolist = MiniDemoListSerializer(read_only=True)
     themelist = MiniThemeListSerializer(many=True, read_only=True)
     sourcelist = MiniSourceListSerializer(read_only=True)
-    animestudios = MiniStudioListSerializer(read_only=True)
+    animestudios = MiniStudioListSerializer(read_only=True, many=True)
 
     class Meta:
         model = Anime

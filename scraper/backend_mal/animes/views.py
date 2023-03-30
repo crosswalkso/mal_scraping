@@ -21,6 +21,7 @@ class SeasonAnimes(APIView):
             raise NotFound
 
     def get(self, request, season_pk):
+        """
         try:
             page = request.query_params.get("page", 1)
             page = int(page)
@@ -29,9 +30,10 @@ class SeasonAnimes(APIView):
         page_size = 10
         start = (page - 1) * page_size
         end = start + page_size
+        """
         season = self.get_season_object(season_pk)
         serializer = AnimeSerializer(
-            season.anime.all()[start:end],
+            season.anime.all(),  # [start:end],
             many=True,
         )
         return Response(serializer.data)

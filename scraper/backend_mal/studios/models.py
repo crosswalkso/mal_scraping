@@ -16,7 +16,7 @@ class Studio(models.Model):
 
 
 class AnimeStudios(models.Model):
-    anime = models.OneToOneField(
+    anime = models.ForeignKey(
         Anime,
         models.DO_NOTHING,
         primary_key=True,

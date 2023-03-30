@@ -12,14 +12,17 @@ import {
 import { SiMyanimelist } from "react-icons/si";
 import { FaEllo, FaGoogleDrive } from "react-icons/fa";
 import TestModal from "./TestModal";
+import { Link } from "react-router-dom";
 export default function Header() {
   const { toggleColorMode } = useColorMode();
   const { isOpen: isTestOpen, onClose: onTestClose, onOpen: onTestOpen } = useDisclosure();
   return (
-    <VStack align={"stretch"} px={12}>
+    <VStack align={"stretch"} px={12} w={"1150px"}>
       {/* HEADER */}
       <HStack justifyContent={"space-between"}>
-        <SiMyanimelist size={64} color={"#0050B5"} />
+        <Link to="/">
+          <SiMyanimelist size={64} color={"#0050B5"} />
+        </Link>
         <HStack spacing={1}>
           <IconButton onClick={toggleColorMode} variant={"ghost"} aria-label="Toggle" icon={<FaEllo />} />
           <IconButton onClick={onTestOpen} aria-label="ModalTest" icon={<FaGoogleDrive />} />
@@ -41,9 +44,11 @@ export default function Header() {
           px={3}
         >
           <HStack spacing={5}>
-            <Square>
-              <Text>Anime</Text>
-            </Square>
+            <Link to="/anime/season">
+              <Square>
+                <Text>Anime</Text>
+              </Square>
+            </Link>
             <Square>
               <Text>Manga</Text>
             </Square>

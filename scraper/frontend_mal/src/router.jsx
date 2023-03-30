@@ -3,7 +3,7 @@ import Home from "./routes/Home";
 import Root from "./components/Root";
 import Animes from "./components/Animes";
 import NotFound from "./routes/NotFound";
-import Season from "./routes/Season";
+import Seasonanime from "./routes/Seasonanime";
 
 const router = createBrowserRouter([
   {
@@ -18,8 +18,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "seasons",
-        element: <Season />,
+        path: "anime/season",
+        element: <Seasonanime />,
       },
       {
         path: "animes",
