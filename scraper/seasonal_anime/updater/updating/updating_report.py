@@ -4,6 +4,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
 from .updating_functions import *
 from .queries import *
+from .execute_queries import get_title_ids
 
 
 class UpdatingReport:
@@ -21,11 +22,17 @@ class UpdatingReport:
     def get_all_attributes(self, driver):
         scores = []
         members = []
+        anime_ids = []
+        titles = []
+
         for idx, anime_box in enumerate(self.anime_boxes):  # len(idx) - anime 개수
             scores.append(collect_scores(anime_box, idx))
             members.append(collect_members(anime_box, idx))
-
+            titles.append(collect_titles(anime_box, idx))
         # create queries
-        score_queries = create_score_hist_query(scores)
-        member_queries = create_member_hist_query(members)
+        db_title_dict = get_title_ids()
+        for title in titles:
+            anime_ids.append(db_title_dict[title])
+        score_queries = create_score_hist_query(anime_ids, scores)
+        member_queries = create_member_hist_query(anime_ids, members)
         return score_queries, member_queries

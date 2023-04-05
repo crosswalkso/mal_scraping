@@ -36,3 +36,20 @@ def collect_members(anime_box: WebElement, idx):
         member = "Unknown"
     # return f"'member'"
     return member
+
+
+def collect_titles(anime_box: WebElement, idx):
+    try:
+        title = (
+            anime_box.find_element(
+                By.XPATH,
+                f"//div[contains(@class, 'seasonal-anime-list')][1]//div[contains(@class, 'js-seasonal-anime') and not(contains(@class, 'js-kids'))][{idx+1}]//a[@class='link-title']",
+            )
+            .get_attribute("innerHTML")
+            .strip()
+        )
+    except Exception as e:
+        # "'Unknown'"
+        title = "Unknown"
+    # return f"'title'"
+    return title
