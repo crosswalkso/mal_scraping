@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from datetime import datetime
 
 
 # Create your models here.
@@ -22,6 +23,12 @@ class Anime(models.Model):
     duration = models.CharField(max_length=20, blank=True, null=True)
     main_img = models.CharField(max_length=300, blank=True, null=True)
     synopsis = models.TextField(blank=True, null=True)
+
+    def members(self):
+        return self.membershist.get(d_date=datetime.now().date()).members
+
+    def score(self):
+        return self.scorehist.get(d_date=datetime.now().date()).score
 
     def __str__(self) -> str:
         return self.title
