@@ -9,15 +9,7 @@ from .serializers import StudioListSerializer
 
 class Studios(APIView):
     def get(self, request):
-        try:
-            page = request.query_params.get("page", 1)
-            page = int(page)
-        except ValueError:
-            page = 1
-        page_size = 10
-        start = (page - 1) * page_size
-        end = start + page_size
-        studios = Studio.objects.all()[start:end]
+        studios = Studio.objects.all().order_by("studio_name")
         serializer = StudioSerializer(studios, many=True)
         return Response(serializer.data)
 
