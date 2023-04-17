@@ -12,7 +12,7 @@ class Mylist(models.Model):
         "animes.Anime",
         related_name="mylists",
     )
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="mylists",
