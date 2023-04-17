@@ -17,6 +17,7 @@ class CustomUserAdmin(UserAdmin):
                     "name",
                     "is_manager",
                     "gender",
+                    "email",
                 ),
                 "classes": ("wide",),
             },
