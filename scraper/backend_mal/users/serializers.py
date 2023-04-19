@@ -3,6 +3,11 @@ from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    mylist = serializers.SerializerMethodField()
+
+    def get_mylist(self, user):
+        return user.mylist()
+
     class Meta:
         model = User
         fields = (
@@ -14,6 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
             "avatar",
             "gender",
             "email",
+            "mylist",
         )
 
 

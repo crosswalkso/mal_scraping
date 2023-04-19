@@ -8,7 +8,7 @@ from .serializers_mini import GenreSerializer
 
 class Genres(APIView):
     def get(self, request):
-        all_genres = Genre.objects.all()
+        all_genres = Genre.objects.all().order_by("genre_name")
         serializer = GenreSerializer(
             all_genres,
             many=True,

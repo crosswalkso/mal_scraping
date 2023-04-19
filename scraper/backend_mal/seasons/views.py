@@ -3,10 +3,12 @@ from rest_framework.response import Response
 from rest_framework.exceptions import NotFound, NotAuthenticated, ParseError
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import Season
+from animes.models import Anime
 from .serializers import SeasonSerializer
 from animes.serializers import AnimeSerializer
 from animes.serializers_mini import MiniAnimeSerializer
 from rest_framework.status import HTTP_400_BAD_REQUEST
+from datetime import datetime
 
 
 # Create your views here.
@@ -92,8 +94,10 @@ class SeasonAnimes(APIView):
 
     def get(self, request, season_pk):
         season = self.get_season_object(season_pk)
-        serializer = MiniAnimeSerializer(
-            season.anime.all(),
+        serializer = AnimeSerializer(
+            season.anime.all()
+            .filter(membershist__d_date=datetime.now().date())
+            .order_by("membershist__members")[::-1],
             many=True,
         )
         return Response(serializer.data)

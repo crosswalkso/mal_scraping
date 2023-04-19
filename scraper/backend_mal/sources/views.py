@@ -10,7 +10,7 @@ from .serializers import SourceListSerializer
 
 class Sources(APIView):
     def get(self, request):
-        sources = Source.objects.all()
+        sources = Source.objects.all().order_by("source_name")
         serializers = SourceSerializer(sources, many=True)
         return Response(serializers.data)
 

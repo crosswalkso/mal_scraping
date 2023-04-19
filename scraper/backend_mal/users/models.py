@@ -17,3 +17,9 @@ class User(AbstractUser):
         choices=GenderChoices.choices,
         default="Male",
     )
+
+    def mylist(self):
+        my_animes = []
+        for my_anime in self.mylists.animes.values_list("id"):
+            my_animes.append(my_anime[0])
+        return my_animes

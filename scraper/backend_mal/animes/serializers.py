@@ -19,6 +19,14 @@ class AnimeSerializer(serializers.ModelSerializer):
     themelist = MiniThemeListSerializer(many=True, read_only=True)
     sourcelist = MiniSourceListSerializer(read_only=True)
     animestudios = MiniStudioListSerializer(read_only=True, many=True)
+    members = serializers.SerializerMethodField()
+    score = serializers.SerializerMethodField()
+
+    def get_members(self, anime):
+        return anime.members()
+
+    def get_score(self, anime):
+        return anime.score()
 
     class Meta:
         model = Anime
