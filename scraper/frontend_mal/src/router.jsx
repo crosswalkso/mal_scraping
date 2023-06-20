@@ -11,6 +11,7 @@ import FilterGenre from "./routes/sourcefilters/FilterGenre";
 import FilterSource from "./routes/sourcefilters/FilterSource";
 import FilterStudio from "./routes/sourcefilters/FilterStudio";
 import MyListDetail from "./routes/mylists/MyListDetail";
+import RegisterUser from "./routes/RegisterUser";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: "mylists/:mylistPk",
         element: <MyListDetail />,
+      },
+      {
+        path: "register",
+        element: <RegisterUser />,
       },
     ],
   },

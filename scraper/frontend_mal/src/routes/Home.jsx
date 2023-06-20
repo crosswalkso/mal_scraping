@@ -20,8 +20,9 @@ export default function Home() {
             <Animes
               id={ag.id}
               key={ag.id}
-              listPk={mylistdata?.map((d) => d.id)}
-              mylist={mylist}
+              // listPk={mylistdata?.map((d) => d.id)}
+              listPk={mylistdata ? mylistdata?.map((d) => d.id) : null}
+              mylist={mylist ? mylist : null} // {mylist}
               score={ag.score}
               members={ag.members}
               genre={ag.animegenres?.map((animegenre) => (

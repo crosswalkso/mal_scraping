@@ -14,13 +14,19 @@ export default function Animes(props) {
       queryClient.refetchQueries(["me"]);
     },
   });
-  const listPk = props.listPk[0];
+  const listPk = props.listPk;
+  let checked;
   const handleAddList = async (data) => {
     const animePk = data.id;
-    console.log(listPk, animePk);
     addListMutation.mutate({ listPk, animePk });
   };
-  const checked = props.mylist.includes(props.id);
+  if (listPk) {
+    checked = props.mylist.includes(props.id);
+  } else {
+    checked = null;
+  }
+  console.log("out", checked);
+
   return (
     <VStack h={"368.02px"} border={"1px"} borderColor={"gray.100"}>
       {/* title date genre */}

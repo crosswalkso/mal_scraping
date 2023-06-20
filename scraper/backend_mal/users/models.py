@@ -1,5 +1,18 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager
+
+
+# -ing
+class UserManager(BaseUserManager):
+    def create_user(self, name, email, password=None, gender="female"):
+        if not email:
+            raise ValueError("Users must have an email address")
+        email = self.normalize_email(email)
+        name = self.model.normalize_username(name)
+        user = self.model(email=email, username=name, gender=gender)
+        user.set_password(password)
+        user.save(using=self.db)
+        return user
 
 
 class User(AbstractUser):
@@ -17,6 +30,7 @@ class User(AbstractUser):
         choices=GenderChoices.choices,
         default="Male",
     )
+    objects = UserManager()
 
     def mylist(self):
         my_animes = []
