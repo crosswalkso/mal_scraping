@@ -16,7 +16,7 @@ class HomeAnimes(APIView):
     def get(self, request):
         animes = (
             Anime.objects.all()
-            .filter(membershist__d_date=datetime.now().date())
+            .filter(membershist__d_date="2023-07-19")
             .order_by("membershist__members")
         )
         serializer = AnimeSerializer(

@@ -1,5 +1,6 @@
 from django.db import models
 from animes.models import Anime
+from django.db.models.functions import Lower
 
 
 # Create your models here.
@@ -13,6 +14,7 @@ class Theme(models.Model):
     class Meta:
         managed = False
         db_table = "theme"
+        ordering = (Lower("theme_name"),)
 
 
 class ThemeList(models.Model):

@@ -22,11 +22,11 @@ export const LogOut = () =>
     })
     .then((response) => response.data);
 
-export const Register = ({ username, name, password, password2 }) =>
+export const Register = ({ username, name, password, password2, gender }) =>
   instance
     .post(
       "/users/register",
-      { username, name, password, password2 },
+      { username, name, password, password2, gender },
       { headers: { "X-CSRFToken": Cookie.get("csrftoken") || "" } }
     )
     .then((response) => response.data);

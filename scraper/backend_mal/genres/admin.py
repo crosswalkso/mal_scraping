@@ -11,4 +11,8 @@ class GenreAdmin(admin.ModelAdmin):
 
 @admin.register(AnimeGenres)
 class AnimeGenresAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        "genre",
+        "anime",
+    )
+    list_filter = ("genre",)

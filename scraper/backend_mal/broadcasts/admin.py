@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Broadcast, BroadcastList
+from django.db.models.functions import Lower
 
 
 # Register your models here.
@@ -10,4 +11,8 @@ class BroadcastAdmin(admin.ModelAdmin):
 
 @admin.register(BroadcastList)
 class BroadcastListAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        "broadcast",
+        "anime",
+    )
+    list_filter = ("broadcast",)

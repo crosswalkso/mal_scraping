@@ -1,5 +1,6 @@
 from django.db import models
 from animes.models import Anime
+from django.db.models.functions import Lower
 
 
 # Create your models here.
@@ -13,6 +14,7 @@ class Studio(models.Model):
     class Meta:
         managed = False
         db_table = "studio"
+        ordering = (Lower("studio_name"),)
 
 
 class AnimeStudios(models.Model):
@@ -39,3 +41,4 @@ class AnimeStudios(models.Model):
         managed = False
         db_table = "anime_studios"
         unique_together = (("anime", "studio"),)
+        verbose_name_plural = "anime studios"

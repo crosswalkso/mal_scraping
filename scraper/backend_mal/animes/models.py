@@ -25,10 +25,10 @@ class Anime(models.Model):
     synopsis = models.TextField(blank=True, null=True)
 
     def members(self):
-        return self.membershist.get(d_date=datetime.now().date()).members
+        return self.membershist.get(d_date="2023-07-19").members
 
     def score(self):
-        return self.scorehist.get(d_date=datetime.now().date()).score
+        return self.scorehist.get(d_date="2023-07-19").score
 
     def __str__(self) -> str:
         return self.title

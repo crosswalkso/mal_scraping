@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Theme, ThemeList
+from django.db.models.functions import Lower
 
 # Register your models here.
 
@@ -11,4 +12,8 @@ class ThemeAdmin(admin.ModelAdmin):
 
 @admin.register(ThemeList)
 class ThemeListAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        "theme",
+        "anime",
+    )
+    list_filter = ("theme",)

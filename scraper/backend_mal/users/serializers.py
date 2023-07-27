@@ -46,9 +46,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
             # "email",
             "username",
             "name",
-            # "gender",
             "password",
             "password2",
+            "gender",
         )
         extra_kwargs = {
             "password": {"write_only": True},
@@ -59,7 +59,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
             # email=self.validated_data["email"],
             name=self.validated_data["name"],
             username=self.validated_data["username"],
-            # gender=self.validated_data["gender"],
+            gender=self.validated_data["gender"],
         )
         password = self.validated_data["password"]
         password2 = self.validated_data["password2"]

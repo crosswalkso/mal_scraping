@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Demo, DemoList
+from django.db.models.functions import Lower
 
 
 # Register your models here.
@@ -10,4 +11,8 @@ class DemoAdmin(admin.ModelAdmin):
 
 @admin.register(DemoList)
 class DemoListAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        "demo",
+        "anime",
+    )
+    list_filter = ("demo",)

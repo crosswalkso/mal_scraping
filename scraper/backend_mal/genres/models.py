@@ -1,5 +1,6 @@
 from django.db import models
 from animes.models import Anime
+from django.db.models.functions import Lower
 
 
 # Create your models here.
@@ -13,6 +14,7 @@ class Genre(models.Model):
     class Meta:
         managed = False
         db_table = "genre"
+        ordering = (Lower("genre_name"),)
 
 
 class AnimeGenres(models.Model):
@@ -40,3 +42,4 @@ class AnimeGenres(models.Model):
         managed = False
         db_table = "anime_genres"
         unique_together = (("anime", "genre"),)
+        verbose_name_plural = "anime genres"
