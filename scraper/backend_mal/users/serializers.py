@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import User
+from mylists.models import Mylist
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -67,4 +68,5 @@ class RegistrationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"password": "Passwords musts match."})
         user.set_password(password)
         user.save()
+        Mylist.objects.create(name=f"{user.name}'s list", user=user)
         return user
