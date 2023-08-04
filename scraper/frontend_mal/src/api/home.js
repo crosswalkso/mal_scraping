@@ -4,6 +4,11 @@ const instance = axios.create({
   withCredentials: true,
 });
 
-export const HomeAnimes = () => {
-  return instance.get(`animes/list`).then((response) => response.data);
+export const HomeAnimes = ({ queryKey }) => {
+  const [_, page] = queryKey;
+  if (page) {
+    return instance.get(`animes/list?page=${page}`).then((response) => response.data);
+  } else {
+    return instance.get(`animes/list?page=1`).then((response) => response.data);
+  }
 };

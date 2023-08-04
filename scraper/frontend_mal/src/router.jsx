@@ -22,7 +22,11 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       {
-        path: "",
+        path: "list/:page",
+        element: <Home />,
+      },
+      {
+        path: "list",
         element: <Home />,
       },
       {

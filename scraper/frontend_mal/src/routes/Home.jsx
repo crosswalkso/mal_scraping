@@ -5,12 +5,16 @@ import { HomeAnimes } from "../api/home";
 import { getMyLists } from "../api/mylists_api";
 import Animes from "../components/Animes";
 import useUser from "../lib/useUser";
+import { useParams } from "react-router-dom";
 
 export default function Home() {
   const { user } = useUser();
-  const { data } = useQuery([`animes`], HomeAnimes);
+  const { page } = useParams();
+  const { data } = useQuery([`animes`, page], HomeAnimes);
   const { data: mylistdata } = useQuery(["mylists"], getMyLists);
   const mylist = user?.mylist;
+  console.log("mylist", mylist);
+  console.log("mylistdata", mylistdata);
 
   return (
     <>

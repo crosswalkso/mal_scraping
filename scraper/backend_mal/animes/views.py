@@ -14,13 +14,21 @@ from datetime import datetime
 # member수 많은 순으로 정렬
 class HomeAnimes(APIView):
     def get(self, request):
+        try:
+            page = request.query_params.get("page", 1)
+            page = int(page)
+        except ValueError:
+            page = 1
+        page_size = 9
+        start = (page - 1) * page_size
+        end = start + page_size
         animes = (
             Anime.objects.all()
             .filter(membershist__d_date="2023-07-19")
-            .order_by("membershist__members")
-        )
+            .order_by("-membershist__members")
+        )[start:end]
         serializer = AnimeSerializer(
-            animes[::-1],
+            animes,
             many=True,
         )
         return Response(serializer.data)

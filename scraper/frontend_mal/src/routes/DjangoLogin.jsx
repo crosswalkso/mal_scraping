@@ -32,7 +32,7 @@ export default function DjangoLogin() {
       });
       queryClient.refetchQueries(["me"]);
       reset(); //
-      navigate("/");
+      navigate("/list");
     },
   });
   const onSubmit = ({ username, password }) => {

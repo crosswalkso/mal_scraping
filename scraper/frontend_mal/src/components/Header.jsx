@@ -61,8 +61,28 @@ export default function Header() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const mutation = useMutation(LogOut, {
+    // onMutate: () => {
+    //   toastId.current = Toast({
+    //     title: "Login out ...",
+    //     description: "Sad to see you go...",
+    //     status: "loading",
+    //     position: "bottom-right",
+    //   });
+    // },
+    // onSuccess: () => {
+    //   if (toastId.current) {
+    //     queryClient.refetchQueries(["me"]);
+    //     toast.update(toastId.current, {
+    //       status: "success",
+    //       title: "Done!",
+    //       description: "See you later!",
+    //     });
+    //     navigate("/");
+    //   }
+    // },
+    // 수정
     onMutate: () => {
-      toastId.current = Toast({
+      Toast({
         title: "Login out ...",
         description: "Sad to see you go...",
         status: "loading",
@@ -70,25 +90,27 @@ export default function Header() {
       });
     },
     onSuccess: () => {
-      if (toastId.current) {
-        queryClient.refetchQueries(["me"]);
-        toast.update(toastId.current, {
-          status: "success",
-          title: "Done!",
-          description: "See you later!",
-        });
-        navigate("/");
-      }
+      queryClient.refetchQueries(["me"]);
+      toast({
+        status: "success",
+        title: "Done!",
+        description: "See you later!",
+      });
+
+      navigate("/");
     },
+    //
   });
   const onLogOut = async () => {
     mutation.mutate();
+    navigate("/list");
+    window.location.reload();
   };
   return (
     <VStack align={"stretch"} px={12} w={"1150px"}>
       {/* HEADER */}
       <HStack justifyContent={"space-between"}>
-        <Link to="/">
+        <Link to="/list">
           <SiMyanimelist size={64} color={"#0050B5"} />
         </Link>
         <HStack spacing={1}>
@@ -101,7 +123,9 @@ export default function Header() {
                 <Link to="/login">
                   <Button variant={"ghost"}>Log in</Button>
                 </Link>
-                <Button variant={"ghost"}>Sign up</Button>
+                <Link to="/register">
+                  <Button variant={"ghost"}>Sign up</Button>
+                </Link>
               </>
             ) : (
               <Menu>
